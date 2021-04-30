@@ -19,7 +19,17 @@ const getAllBooks = async () => {
 // @desc    Get book by id
 // @route   GET /api/books/:id
 // @access  Public
-const getBookById = async () => {};
+const getBookById = async () => {
+    try {
+        const { id } = req.params;
+        const book = await Book.findById(id);
+        return res.status(200).json(book);
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(err);
+    }
+};
 
 // @desc    Add new book
 // @route   POST /api/books
