@@ -1,5 +1,7 @@
 # Book Collection (MERN)
 
+## API Documentation
+
 ## Usage
 
 ```
