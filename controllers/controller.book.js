@@ -55,12 +55,38 @@ const addBook = async () => {
 // @desc    Update book info
 // @route   PATCH /api/books/:id
 // @access  Public
-const updateBook = async () => {};
+const updateBook = async () => {
+    try {
+        const { id } = req.params;
+        const book = await Book.updateOne(
+            { _id: id },
+            { $set: req.body },
+            (err, res) => {
+                if (err) throw err;
+            }
+        );
+        return res.status(200).json({ message: "Book updated", book });
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(error);
+    }
+};
 
 // @desc    Delete book
 // @route   DELETE /api/books/:id
 // @access  Public
-const deleteBook = async () => {};
+const deleteBook = async () => {
+    try {
+        const { id } = req.params;
+        const book = await Book.remove({ _id: id });
+        return res.status(200).json({ message: "Book deleted" });
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(error);
+    }
+};
 
 module.exports = {
     getAllBooks,
