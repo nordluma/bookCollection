@@ -3,6 +3,10 @@
 ## Usage
 
 ```
+change .env file in config folder
+```
+
+```
  npm install
  
  # Backend only
