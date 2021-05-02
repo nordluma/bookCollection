@@ -1,5 +1,5 @@
 const express = require("express");
-const bp = require("body-parser");
+const path = require("path");
 require("dotenv").config({ path: "./config/.env" });
 
 const connectDb = require("./config/db");
@@ -14,6 +14,14 @@ app.use(express.json());
 
 // Routes
 app.use("/api/books", bookRoutes);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    });
+}
 
 // Error Handling
 app.use((req, res, next) => {
@@ -32,5 +40,7 @@ app.use((error, req, res) => {
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
+    console.log(
+        `Server running in ${process.env.NODE_ENV} mode on port: ${port}`
+    );
 });
