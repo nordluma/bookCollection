@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const morgan = require("morgan");
 require("dotenv").config({ path: "./config/.env" });
 
 const connectDb = require("./config/db");
@@ -11,6 +12,10 @@ const app = express();
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan("dev"));
+}
 
 // Routes
 app.use("/api/books", bookRoutes);
