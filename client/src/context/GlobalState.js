@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
+import axios from "axios";
 
 // Initial state
 const initialState = {
@@ -18,7 +19,7 @@ export const GlobalProvider = ({ children }) => {
     // Actions
     async function getBooks() {
         try {
-            const res = await fetch("/api/books");
+            const res = await axios.get("/api/books");
 
             dispatch({
                 type: "GET_BOOKS",
@@ -37,12 +38,7 @@ export const GlobalProvider = ({ children }) => {
     // Delete book
     async function deleteBook(id) {
         try {
-            await fetch(`/api/books/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-type": "application/json",
-                },
-            });
+            await axios.delete(`/api/books/${id}`);
 
             dispatch({
                 type: "DELETE_BOOK",
@@ -58,14 +54,12 @@ export const GlobalProvider = ({ children }) => {
 
     // Add book
     async function addBook(book) {
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-type": "application" },
-            body: book,
+        const config = {
+            headers: { "Content-type": "application/json" },
         };
 
         try {
-            const res = await fetch("/api/books", requestOptions);
+            const res = await axios.post("/api/books", book, config);
 
             dispatch({
                 type: "ADD_BOOK",
