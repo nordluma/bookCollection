@@ -32,6 +32,8 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    // Update book
+
     // Delete book
     async function deleteBook(id) {
         try {
