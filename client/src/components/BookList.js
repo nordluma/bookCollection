@@ -8,8 +8,7 @@ export const BookList = () => {
 
     useEffect(() => {
         getBooks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [getBooks]);
 
     return (
         <>
