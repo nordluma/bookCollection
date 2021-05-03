@@ -10,7 +10,6 @@ export const AddBook = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
         const newBook = {
             title,
             author,
@@ -18,6 +17,9 @@ export const AddBook = () => {
         };
 
         addBook(newBook);
+        setTitle("");
+        setAuthor("");
+        setDescription("");
     };
 
     return (
