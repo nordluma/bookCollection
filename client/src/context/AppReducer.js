@@ -14,6 +14,11 @@ export default (state, action) => {
                     (book) => book._id !== action.payload
                 ),
             };
+        case "ADD_BOOK":
+            return {
+                ...state,
+                books: [...state.books, action.payload],
+            };
         case "BOOK_ERROR":
             return {
                 ...state,
