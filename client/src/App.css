@@ -24,6 +24,16 @@ body {
   width: 350px;
 }
 
+.btn-container {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-inner-container {
+  display: inline-block;
+  margin: 10px
+}
+
 h1 {
   letter-spacing: 1px;
   margin: 0;
@@ -87,22 +97,30 @@ textarea {
 
 .btn {
   cursor: pointer;
-  background-color: #36bb24;
   box-shadow: var(--box-shadow);
   color: #fff;
   border: 0;
   display: block;
   font-size: 16px;
-  margin: 10px 0 30px;
+  margin: 10px 0 10px;
   padding: 10px;
+}
+
+.main-btn {
+  background-color: #36bb24;
   width: 100%;
 }
 
+.close-btn {
+  background-color: #333;
+}
+
+.add-btn {
+  background-color: #36bb24;
+}
+
 .delete-btn {
-  cursor: pointer;
   background-color: #e74c3c;
-  border: 0;
-  color: #fff;
   font-size: 20px;
   line-height: 20px;
   padding: 2px 5px;
@@ -115,10 +133,7 @@ textarea {
 }
 
 .update-btn {
-  cursor: pointer;
   background-color: #5432ff;
-  border: 0;
-  color: #fff;
   font-size: 20px;
   line-height: 20px;
   padding: 2px 5px;
