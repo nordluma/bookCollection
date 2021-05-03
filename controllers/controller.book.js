@@ -5,57 +5,81 @@ const Book = require("../models/models.book");
 // @desc    Get all books
 // @route   GET /api/books
 // @access  Public
-const getAllBooks = async () => {
+exports.getAllBooks = async (req, res, next) => {
     try {
         const books = await Book.find();
-        res.status(200).json(books);
+        res.status(200).json({
+            success: true,
+            count: books.length,
+            data: books,
+        });
     } catch (err) {
-        const error = new Error(err);
-        error.status = err.status || 500;
-        next(error);
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
     }
 };
 
 // @desc    Get book by id
 // @route   GET /api/books/:id
 // @access  Public
-const getBookById = async () => {
+exports.getBookById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const book = await Book.findById(id);
-        return res.status(200).json(book);
+        return res.status(200).json({
+            success: true,
+            data: book,
+        });
     } catch (err) {
-        const error = new Error(err);
-        error.status = err.status || 500;
-        next(err);
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
     }
 };
 
 // @desc    Add new book
 // @route   POST /api/books
 // @access  Public
-const addBook = async () => {
+exports.addBook = async (req, res, next) => {
     try {
+        console.log("api triggers");
         const { title, author, description } = req.body;
+
         const book = new Book({
             _id: new mongoose.Types.ObjectId(),
+            title,
             author,
             description,
         });
 
         const savedBook = await book.save();
-        return res.status(201).json({ message: "Book added", savedBook });
+        return res.status(201).json({ success: true, data: savedBook });
     } catch (err) {
-        const error = new Error(err);
-        error.status = err.status || 500;
-        next(error);
+        if (err.name === "ValidationError") {
+            const messages = Object.values(err.errors).map(
+                (val) => val.message
+            );
+
+            return res.status(400).json({
+                success: false,
+                error: messages,
+            });
+        } else {
+            return res.status(500).json({
+                success: false,
+                error: "Server Error",
+            });
+        }
     }
 };
 
 // @desc    Update book info
 // @route   PATCH /api/books/:id
 // @access  Public
-const updateBook = async () => {
+exports.updateBook = async (req, res, next) => {
     try {
         const { id } = req.params;
         const book = await Book.updateOne(
@@ -76,22 +100,35 @@ const updateBook = async () => {
 // @desc    Delete book
 // @route   DELETE /api/books/:id
 // @access  Public
-const deleteBook = async () => {
+exports.deleteBook = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const book = await Book.remove({ _id: id });
-        return res.status(200).json({ message: "Book deleted" });
+        const book = await Book.findById(id);
+
+        if (!book) {
+            return res.status(404).json({
+                success: false,
+                error: "No book found",
+            });
+        }
+        await Book.remove({ _id: id });
+
+        return res.status(200).json({
+            success: true,
+            data: {},
+        });
     } catch (err) {
-        const error = new Error(err);
-        error.status = err.status || 500;
-        next(error);
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
     }
 };
 
-module.exports = {
+/* module.exports = {
     getAllBooks,
     getBookById,
     addBook,
     updateBook,
     deleteBook,
-};
+}; */
