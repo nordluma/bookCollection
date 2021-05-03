@@ -55,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
     // Add book
     async function addBook(book) {
         const config = {
-            headers: { "Content-type": "application/json" },
+            headers: { "Content-Type": "application/json" },
         };
 
         try {

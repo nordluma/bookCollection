@@ -53,7 +53,7 @@ export const AddBook = () => {
                         rows="10"
                     ></textarea>
                 </div>
-                <button className="btn">Add book</button>
+                <button className="btn">Add Book</button>
             </form>
         </>
     );
