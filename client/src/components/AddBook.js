@@ -20,6 +20,7 @@ export const AddBook = ({ open, onClose }) => {
         setTitle("");
         setAuthor("");
         setDescription("");
+        onClose();
     };
 
     if (!open) return null;
