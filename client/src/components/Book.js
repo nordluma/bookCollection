@@ -14,7 +14,11 @@ export const Book = ({ book }) => {
             <button onClick={() => setIsOpen(true)} className="btn update-btn">
                 Update
             </button>
-            <UpdateModal open={isOpen} onClose={() => setIsOpen(false)} />
+            <UpdateModal
+                book={book}
+                open={isOpen}
+                onClose={() => setIsOpen(false)}
+            />
 
             <button
                 onClick={() => deleteBook(book._id)}
