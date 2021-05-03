@@ -45,7 +45,6 @@ exports.getBookById = async (req, res, next) => {
 // @access  Public
 exports.addBook = async (req, res, next) => {
     try {
-        console.log("api triggers");
         const { title, author, description } = req.body;
 
         const book = new Book({
@@ -103,15 +102,7 @@ exports.updateBook = async (req, res, next) => {
 exports.deleteBook = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const book = await Book.findById(id);
-
-        if (!book) {
-            return res.status(404).json({
-                success: false,
-                error: "No book found",
-            });
-        }
-        await Book.remove({ _id: id });
+        const book = await Book.deleteOne({ _id: id });
 
         return res.status(200).json({
             success: true,
