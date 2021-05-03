@@ -34,30 +34,10 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
-    // Get book by id
-    async function getBookById(id) {
-        try {
-            const res = await axios.get(`/api/books/${id}`);
-
-            dispatch({
-                type: "GET_BOOK",
-                payload: res.data.data,
-            });
-        } catch (err) {
-            dispatch({
-                type: "BOOK_ERROR",
-                payload: err.response.data.error,
-            });
-        }
-    }
-
     // Update book
     async function updateBook(id, book) {
-        const config = {
-            headers: { "Content-Type": "application/json" },
-        };
         try {
-            const res = await axios.patch(`/api/books/${id}`, book, config);
+            const res = await axios.patch(`/api/books/${id}`, book);
 
             dispatch({
                 type: "UPDATE_BOOK",
@@ -116,7 +96,6 @@ export const GlobalProvider = ({ children }) => {
                 error: state.error,
                 loading: state.loading,
                 getBooks,
-                getBookById,
                 updateBook,
                 deleteBook,
                 addBook,

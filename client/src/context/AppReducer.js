@@ -10,22 +10,16 @@ export default (state, action) => {
                 books: payload,
             };
         case "UPDATE_BOOK":
-            return state.books.map((book) => {
-                if (book._id === payload._id) {
-                    return {
-                        ...book,
-                        ...payload,
-                    };
-                } else {
-                    return state;
+            const updatedBook = payload;
+            const updatedBooks = state.books.map((book) => {
+                if (book._id === updatedBook._id) {
+                    return updatedBook;
                 }
+                return state;
             });
-
-        case "GET_BOOK":
             return {
                 ...state,
-                loading: false,
-                books: payload,
+                books: updatedBooks,
             };
         case "DELETE_BOOK":
             return {

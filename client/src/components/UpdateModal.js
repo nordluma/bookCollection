@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 
-export const UpdateModal = ({ open, children, onClose }) => {
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("");
-    const [description, setDescription] = useState("");
+export const UpdateModal = ({ book, open, onClose }) => {
+    const [title, setTitle] = useState(book.title);
+    const [author, setAuthor] = useState(book.author);
+    const [description, setDescription] = useState(book.description);
 
-    const { books, updateBook } = useContext(GlobalContext);
+    const { getBooks, updateBook } = useContext(GlobalContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -16,7 +16,9 @@ export const UpdateModal = ({ open, children, onClose }) => {
             description,
         };
 
-        updateBook(newBook);
+        updateBook(book._id, newBook);
+        onClose();
+        getBooks();
     };
 
     if (!open) return null;

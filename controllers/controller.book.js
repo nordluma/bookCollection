@@ -88,7 +88,7 @@ exports.updateBook = async (req, res, next) => {
                 if (err) throw err;
             }
         );
-        return res.status(200).json({ message: "Book updated", book });
+        return res.status(200).json({ success: true, data: book });
     } catch (err) {
         const error = new Error(err);
         error.status = err.status || 500;
