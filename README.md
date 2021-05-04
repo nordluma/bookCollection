@@ -4,12 +4,14 @@
 
 ## Usage
 
+A single page application for users see and add information about books to a collection. All users are able to see, add new ones, update and delete all books in the database.
+
+## Installation
+
 ```
 The project does not include env variables.
 Create .env file in config folder with variables NODE_ENV, PORT and MONGO_URI
 ```
-
-## Installation
 
 ```
  npm install
